@@ -22,8 +22,9 @@ function Calculator() {
 
   function calculate(label) {
     let calc = eval(displayValue);
-    console.log(calc)
+    console.log(calc);
   }
+
   return (
     <div className="Calculator">
       <Buttons onclick={add_values} operation>
@@ -77,9 +78,7 @@ function Calculator() {
       <Buttons onclick={add_values} operation>
         )
       </Buttons>
-      <Buttons onclick={calculate}>
-        =
-      </Buttons>
+      <Buttons onclick={calculate}>=</Buttons>
       {displayValue}
     </div>
   );
