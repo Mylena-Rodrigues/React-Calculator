@@ -1,14 +1,18 @@
 /* eslint-disable no-eval */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Buttons from './components/Buttons';
+import { isNumeric } from './utils/isNumeric.js';
+import { isBalanced } from './utils/isBalanced.js';
 
 function Calculator() {
   const [displayValue, setDisplayValue] = useState('0');
   const [operation, setOperation] = useState(null);
-
-  function isNumeric(val) {
-    return /⁻?\d+$/.test(val);
-  }
+  const [historic, setHistoric] = useState([
+    {
+      operation: '',
+      result: '',
+    },
+  ]);
 
   function add_values(label) {
     if (isNumeric(label) || label === '.') {
@@ -23,45 +27,32 @@ function Calculator() {
   }
 
   function calculate(label) {
-    let calc = eval(displayValue);
-    console.log(calc);
+
+    let displayValueBalanced = isBalanced(displayValue)  ? displayValue : displayValue + ")"
+    let res = eval(displayValueBalanced);
+
+    setHistoric([...historic, { operation: displayValueBalanced, result: res }]);
+    setDisplayValue(res);
+
   }
+
+  useEffect(() => {
+
+  }, [displayValue])
 
   return (
     <div className="Calculator">
-      <Buttons onclick={add_values} operation>
-        1
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        2
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        3
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        4
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        5
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        6
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        7
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        8
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        9
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        0
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        .
-      </Buttons>
+      <Buttons onclick={add_values}>1</Buttons>
+      <Buttons onclick={add_values}>2</Buttons>
+      <Buttons onclick={add_values}>3</Buttons>
+      <Buttons onclick={add_values}>4</Buttons>
+      <Buttons onclick={add_values}>5</Buttons>
+      <Buttons onclick={add_values}>6</Buttons>
+      <Buttons onclick={add_values}>7</Buttons>
+      <Buttons onclick={add_values}>8</Buttons>
+      <Buttons onclick={add_values}>9</Buttons>
+      <Buttons onclick={add_values}>0</Buttons>
+      <Buttons onclick={add_values}>.</Buttons>
       <Buttons onclick={add_values} operation>
         +
       </Buttons>
@@ -80,7 +71,9 @@ function Calculator() {
       <Buttons onclick={add_values} operation>
         )
       </Buttons>
-      <Buttons onclick={calculate}>=</Buttons>
+      <Buttons onclick={calculate} operation>
+        =
+      </Buttons>
       {displayValue}
     </div>
   );
