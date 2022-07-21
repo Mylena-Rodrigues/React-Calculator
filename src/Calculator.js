@@ -16,7 +16,9 @@ function Calculator() {
         ? setDisplayValue(label)
         : setDisplayValue(displayValue + label);
     } else {
-      setDisplayValue(displayValue + ' ' + label + ' ');
+      displayValue === '0' && label === '('
+        ? setDisplayValue(label)
+        : setDisplayValue(displayValue + ' ' + label + ' ');
     }
   }
 
