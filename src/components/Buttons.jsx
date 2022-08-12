@@ -1,9 +1,8 @@
 import React from 'react';
-import './buttons.scss';
 
 export default function Buttons({ children, operation, onclick }) {
-  let classes = 'button ';
-  classes += operation ? ' operation' : 'number';
+  let classes = `btn btn-${children === '()' ? 'bracket' : children}`;
+  classes += operation ? ' operation' : ' number';
 
   return (
     <button className={classes} onClick={() => onclick(children)}>

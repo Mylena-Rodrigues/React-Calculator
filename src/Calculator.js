@@ -1,8 +1,11 @@
 /* eslint-disable no-eval */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Buttons from './components/Buttons';
 import { isNumeric } from './utils/isNumeric.js';
 import { isBalanced } from './utils/isBalanced.js';
+import Display from './components/Display';
+
+import './css/custom.scss';
 
 function Calculator() {
   const [displayValue, setDisplayValue] = useState('0');
@@ -27,54 +30,50 @@ function Calculator() {
   }
 
   function calculate(label) {
-
-    let displayValueBalanced = isBalanced(displayValue)  ? displayValue : displayValue + ")"
+    let displayValueBalanced = isBalanced(displayValue)
+      ? displayValue
+      : displayValue + ')';
     let res = eval(displayValueBalanced);
 
-    setHistoric([...historic, { operation: displayValueBalanced, result: res }]);
+    setHistoric([
+      ...historic,
+      { operation: displayValueBalanced, result: res },
+    ]);
     setDisplayValue(res);
-
   }
 
-  useEffect(() => {
-
-  }, [displayValue])
+  const operations = ['+', '-', '/', '*'];
+  const arr = [0, 3, 2, 1, 6, 5, 4, 9, 8, 7];
 
   return (
-    <div className="Calculator">
-      <Buttons onclick={add_values}>1</Buttons>
-      <Buttons onclick={add_values}>2</Buttons>
-      <Buttons onclick={add_values}>3</Buttons>
-      <Buttons onclick={add_values}>4</Buttons>
-      <Buttons onclick={add_values}>5</Buttons>
-      <Buttons onclick={add_values}>6</Buttons>
-      <Buttons onclick={add_values}>7</Buttons>
-      <Buttons onclick={add_values}>8</Buttons>
-      <Buttons onclick={add_values}>9</Buttons>
-      <Buttons onclick={add_values}>0</Buttons>
-      <Buttons onclick={add_values}>.</Buttons>
-      <Buttons onclick={add_values} operation>
-        +
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        -
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        /
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        *
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        (
-      </Buttons>
-      <Buttons onclick={add_values} operation>
-        )
-      </Buttons>
-      <Buttons onclick={calculate} operation>
-        =
-      </Buttons>
-      {displayValue}
+    <div className="root">
+      <div className="calculator">
+        <Display displayValue={displayValue} />
+        <div className="buttons-container">
+          <div className="buttons-number">
+            <Buttons>AC</Buttons>
+            <Buttons>C</Buttons>
+            <Buttons>()</Buttons>
+            {arr.reverse().map((i) => (
+              <Buttons onclick={add_values}>{i}</Buttons>
+            ))}
+            <Buttons onclick={add_values}>.</Buttons>
+          </div>
+          <div className="buttons-operation">
+            {operations.map((op) => {
+              return (
+                <Buttons onclick={add_values} operation>
+                  {op}
+                </Buttons>
+              );
+            })}
+
+            <Buttons onclick={calculate} operation>
+              =
+            </Buttons>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
