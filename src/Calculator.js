@@ -4,13 +4,12 @@ import Buttons from './components/Buttons';
 import { isNumeric } from './utils/isNumeric.js';
 import { isBalanced } from './utils/isBalanced.js';
 import Display from './components/Display';
-
 import './css/custom.scss';
 
 function Calculator() {
   const [displayValue, setDisplayValue] = useState('0');
   const [operation, setOperation] = useState(null);
-  const [historic, setHistoric] = useState([
+  const [history, setHistory] = useState([
     {
       operation: '',
       result: '',
@@ -18,7 +17,7 @@ function Calculator() {
   ]);
 
   function newCalculation(newLabel) {
-    const lastItem = historic.pop();
+    const lastItem = history.pop();
     if (displayValue === lastItem.result) {
       setDisplayValue(newLabel);
     }
@@ -42,7 +41,7 @@ function Calculator() {
     if (isNumeric(label) || label === '.') {
       displayValue === '0'
         ? setDisplayValue(label)
-        : setDisplayValue(displayValue + label);
+        : setDisplayValue(displayValue + label.toString());
     } else {
       displayValue === '0' && label === '('
         ? setDisplayValue(label)
@@ -58,8 +57,8 @@ function Calculator() {
       : displayValue + ')';
     let res = eval(displayValueBalanced);
 
-    setHistoric([
-      ...historic,
+    setHistory([
+      ...history,
       { operation: displayValueBalanced, result: res },
     ]);
     setDisplayValue(res);
@@ -78,14 +77,16 @@ function Calculator() {
             <Buttons onclick={erase_value}>C</Buttons>
             <Buttons onclick={add_bracket}>()</Buttons>
             {arr.reverse().map((i) => (
-              <Buttons onclick={add_values}>{i}</Buttons>
+              <Buttons key={i} onclick={add_values}>
+                {i}
+              </Buttons>
             ))}
             <Buttons onclick={add_values}>.</Buttons>
           </div>
           <div className="buttons-operation">
             {operations.map((op) => {
               return (
-                <Buttons onclick={add_values} operation>
+                <Buttons key={op} onclick={add_values} operation>
                   {op}
                 </Buttons>
               );
