@@ -17,12 +17,25 @@ function Calculator() {
     },
   ]);
 
+  function newCalculation(newLabel) {
+    const lastItem = historic.pop();
+    if (displayValue === lastItem.result) {
+      setDisplayValue(newLabel);
+    }
+  }
+
   function erase_display() {
     setDisplayValue(0);
   }
 
   function erase_value() {
     setDisplayValue(displayValue.slice(0, -1));
+  }
+
+  function add_bracket() {
+    setDisplayValue(
+      isBalanced(displayValue) ? displayValue + '(' : displayValue + ')',
+    );
   }
 
   function add_values(label) {
@@ -35,6 +48,8 @@ function Calculator() {
         ? setDisplayValue(label)
         : setDisplayValue(displayValue + ' ' + label + ' ');
     }
+
+    newCalculation(label);
   }
 
   function calculate() {
@@ -61,7 +76,7 @@ function Calculator() {
           <div className="buttons-number">
             <Buttons onclick={erase_display}>AC</Buttons>
             <Buttons onclick={erase_value}>C</Buttons>
-            <Buttons>()</Buttons>
+            <Buttons onclick={add_bracket}>()</Buttons>
             {arr.reverse().map((i) => (
               <Buttons onclick={add_values}>{i}</Buttons>
             ))}
