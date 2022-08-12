@@ -17,6 +17,11 @@ function Calculator() {
     },
   ]);
 
+  function erase_display() {
+    setDisplayValue(0);
+  }
+
+
   function add_values(label) {
     if (isNumeric(label) || label === '.') {
       displayValue === '0'
@@ -27,9 +32,10 @@ function Calculator() {
         ? setDisplayValue(label)
         : setDisplayValue(displayValue + ' ' + label + ' ');
     }
+
   }
 
-  function calculate(label) {
+  function calculate() {
     let displayValueBalanced = isBalanced(displayValue)
       ? displayValue
       : displayValue + ')';
@@ -51,8 +57,8 @@ function Calculator() {
         <Display displayValue={displayValue} />
         <div className="buttons-container">
           <div className="buttons-number">
-            <Buttons>AC</Buttons>
-            <Buttons>C</Buttons>
+            <Buttons onclick={erase_display}>AC</Buttons>
+            <Buttons >C</Buttons>
             <Buttons>()</Buttons>
             {arr.reverse().map((i) => (
               <Buttons onclick={add_values}>{i}</Buttons>
