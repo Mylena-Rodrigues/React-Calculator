@@ -1,9 +1,8 @@
-button {
+.btn {
   height: 105px;
   border: none;
   background-color: #F8F8FF;
   border-radius: 30px;
-
 }
 
 .operation {
@@ -28,10 +27,6 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5px;
-}
-
-.btn-0 {
-  grid-column: 2;
 }
 
 .buttons-container .buttons-operation {

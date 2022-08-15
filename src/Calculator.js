@@ -5,6 +5,7 @@ import { isNumeric } from './utils/isNumeric.js';
 import { isBalanced } from './utils/isBalanced.js';
 import Display from './components/Display';
 import './css/custom.scss';
+import History from './components/History';
 
 function Calculator() {
   const [displayValue, setDisplayValue] = useState('0');
@@ -18,13 +19,14 @@ function Calculator() {
 
   function newCalculation(newLabel) {
     const lastItem = history.pop();
-    if (displayValue === lastItem.result) {
+
+    if (lastItem && displayValue === lastItem.result) {
       setDisplayValue(newLabel);
     }
   }
 
   function erase_display() {
-    setDisplayValue(0);
+    setDisplayValue('0');
   }
 
   function erase_value() {
@@ -32,13 +34,12 @@ function Calculator() {
   }
 
   function add_bracket() {
-    setDisplayValue(
-      isBalanced(displayValue) ? displayValue + '(' : displayValue + ')',
-    );
+    isBalanced(displayValue) ? add_values('(') : add_values(')');
   }
 
   function add_values(label) {
     if (isNumeric(label) || label === '.') {
+      console.log(label);
       displayValue === '0'
         ? setDisplayValue(label)
         : setDisplayValue(displayValue + label.toString());
@@ -57,19 +58,16 @@ function Calculator() {
       : displayValue + ')';
     let res = eval(displayValueBalanced);
 
-    setHistory([
-      ...history,
-      { operation: displayValueBalanced, result: res },
-    ]);
+    setHistory([...history, { operation: displayValueBalanced, result: res }]);
     setDisplayValue(res);
   }
 
   const operations = ['+', '-', '/', '*'];
-  const arr = [0, 3, 2, 1, 6, 5, 4, 9, 8, 7];
+  const arr = [3, 2, 1, 6, 5, 4, 9, 8, 7];
 
   return (
     <div className="root">
-      <div className="calculator">
+      <div className="calc-media calculator">
         <Display displayValue={displayValue} />
         <div className="buttons-container">
           <div className="buttons-number">
@@ -81,6 +79,8 @@ function Calculator() {
                 {i}
               </Buttons>
             ))}
+            <History historyList={history} />
+            <Buttons onclick={add_values}>0</Buttons>
             <Buttons onclick={add_values}>.</Buttons>
           </div>
           <div className="buttons-operation">
