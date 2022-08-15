@@ -1,0 +1,68 @@
+.btn-history img {
+  width: 20px;
+  height: 20px;
+}
+
+.history .btn-history {
+  align-self: flex-end;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  overflow: auto;
+}
+
+.history {
+  background-color: #f8f8ff;
+  border-radius: 30px;
+  animation: slideUp 1.5s forwards;
+}
+
+.history button {
+  background: none;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.history .history-list {
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.history-calc {
+  text-align: end;
+  padding: 0px 5px;
+  border-top: 2px solid #dcdcdc;
+  border-bottom: 2px solid #dcdcdc;
+}
+
+.slide-down {
+  animation: slideDown 1.5s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 700px;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    max-height: 700px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}
