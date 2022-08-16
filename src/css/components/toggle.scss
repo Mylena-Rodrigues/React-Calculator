@@ -1,0 +1,50 @@
+.toggle-container {
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;
+
+  .checkbox {
+    display: none;
+
+    &:checked + .toggle {
+      background-image: url('../../imgs/moon_icon.svg');
+      background-size: 60px 60px;
+      background-position: left center;
+
+      &::before {
+        position: absolute;
+        -webkit-transform: translateX(65px);
+        -ms-transform: translateX(65px);
+        transform: translateX(65px);
+      }
+    }
+  }
+
+  .toggle {
+    width: 125px;
+    height: 60px;
+    border-radius: 18px;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+
+    background-image: url('../../imgs/sun_icon.svg');
+    background-color: $calc_btn_background;
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+    background-position: right center;
+
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      left: 5px;
+      bottom: 5px;
+      border-radius: 15px;
+      background-color: $calc_toggle_color;
+      transition: all 0.5s ease-in-out;
+    }
+  }
+}

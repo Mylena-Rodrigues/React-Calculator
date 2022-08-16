@@ -1,0 +1,41 @@
+.dark-mode {
+  background-color: $calc_dark_background !important;
+
+  .toggle-container {
+    .toggle {
+      background-color: $calc_dark_btn_background !important;
+
+      &::before {
+        background-color: $calc_dark_toggle_color !important;
+      }
+    }
+  }
+
+  .display {
+    color: $calc_dark_number !important;
+  }
+
+  .btn-container {
+    background-color: $calc_dark_btn_background !important;
+
+    .btn {
+      background-color: $calc_dark_background !important;
+    }
+
+    .number {
+      color: $calc_dark_number !important;
+    }
+
+    .btn-AC,
+    .btn-C,
+    .btn-bracket {
+      color: $calc_special !important;
+    }
+  }
+
+  .history p,
+  h2,
+  h3 {
+    color: $calc_dark_number !important;
+  }
+}
