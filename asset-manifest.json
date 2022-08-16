@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/React-Calculator/static/css/main.6ac9bc46.css",
+    "main.js": "/React-Calculator/static/js/main.cdcd8387.js",
+    "static/media/BreeSerif-Regular.ttf": "/React-Calculator/static/media/BreeSerif-Regular.751eb941c0e1335ad247.ttf",
+    "static/media/sun_icon.svg": "/React-Calculator/static/media/sun_icon.90e7202167492af0de67.svg",
+    "static/media/moon_icon.svg": "/React-Calculator/static/media/moon_icon.4ebcc4547b1e40535573.svg",
+    "static/media/history_icon.svg": "/React-Calculator/static/media/history_icon.228e93fcf4fbed15e5bb9792fabf0ce6.svg",
+    "static/media/dark_history_icon.svg": "/React-Calculator/static/media/dark_history_icon.dda03031835122902a274bf52646fc54.svg",
+    "index.html": "/React-Calculator/index.html",
+    "static/media/dark_close_icon.svg": "/React-Calculator/static/media/dark_close_icon.6a799e73c1ab1745f1644b3a1a139196.svg",
+    "static/media/close_icon.svg": "/React-Calculator/static/media/close_icon.2001e956d267bc9b1a2349ee0a8ee521.svg",
+    "main.6ac9bc46.css.map": "/React-Calculator/static/css/main.6ac9bc46.css.map",
+    "main.cdcd8387.js.map": "/React-Calculator/static/js/main.cdcd8387.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6ac9bc46.css",
+    "static/js/main.cdcd8387.js"
+  ]
+}
