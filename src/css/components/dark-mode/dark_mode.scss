@@ -33,9 +33,13 @@
     }
   }
 
-  .history p,
-  h2,
-  h3 {
-    color: $calc_dark_number !important;
+  .history {
+    background-color: $calc_dark_background !important;
+    
+    p,
+    h2,
+    h3 {
+      color: $calc_dark_number !important;
+    }
   }
 }

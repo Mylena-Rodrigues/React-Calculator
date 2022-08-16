@@ -1,50 +1,48 @@
-.btn-history img {
-  width: 20px;
-  height: 20px;
-}
-
-.history .btn-history {
-  align-self: flex-end;
-}
-
 .modal {
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   overflow: auto;
+
+  .history {
+    background-color: $calc_background;
+    animation: slideUp 1.5s forwards;
+
+    .history-list {
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: $calc_number;
+
+      .btn-history {
+        align-self: flex-end;
+        background: none;
+        border: none;
+        margin-bottom: 10px;
+      }
+
+      .history-calc {
+        text-align: end;
+        padding: 0px 5px;
+        border-top: 2px solid #dcdcdc;
+        border-bottom: 2px solid #dcdcdc;
+      }
+    }
+  }
+
+  .slide-down {
+    animation: slideDown 1.5s forwards;
+  }
 }
 
-.history {
-  background-color: #f8f8ff;
-  border-radius: 30px;
-  animation: slideUp 1.5s forwards;
+img {
+  width: 30px;
+  height: 30px;
 }
 
-.history button {
-  background: none;
-  border: none;
-  margin-bottom: 10px;
-}
-
-.history .history-list {
-  padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-}
-
-.history-calc {
-  text-align: end;
-  padding: 0px 5px;
-  border-top: 2px solid #dcdcdc;
-  border-bottom: 2px solid #dcdcdc;
-}
-
-.slide-down {
-  animation: slideDown 1.5s forwards;
-}
-
+/** KeyFrames **/
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -52,14 +50,14 @@
   }
   to {
     opacity: 1;
-    max-height: 700px;
+    max-height: 800px;
   }
 }
 
 @keyframes slideDown {
   from {
     opacity: 1;
-    max-height: 700px;
+    max-height: 800px;
   }
   to {
     opacity: 0;

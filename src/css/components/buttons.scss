@@ -1,36 +1,22 @@
 .btn {
-  height: 105px;
+  height: 90px;
   border: none;
-  background-color: #F8F8FF;
+  background-color: $calc_background;
   border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .operation {
-  color: #FF4500;
+  color: $calc_operation;
 }
 
 .number {
-  color: #1C1C1C;
+  color: $calc_number;
 }
 
-.btn-AC, .btn-C, .btn-bracket {
-    color: #32CD32;
-}
-
-.buttons-container {
-  display: grid;
-  grid-template-columns: 300px 100px;
-  gap: 5px;
-}
-
-.buttons-container .buttons-number {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-}
-
-.buttons-container .buttons-operation {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.btn-AC,
+.btn-C,
+.btn-bracket {
+  color: $calc_special;
 }

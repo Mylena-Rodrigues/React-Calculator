@@ -4,9 +4,12 @@ import close_icon from '../imgs/close_icon.svg';
 import dark_close_icon from '../imgs/dark-mode/dark_close_icon.svg';
 import history_icon from '../imgs/history_icon.svg';
 import dark_history_icon from '../imgs/dark-mode/dark_history_icon.svg';
+import { useCalculus } from '../context/Calculus';
 
 export default function History({ historyList }) {
   const { darkMode } = useTheme();
+  const {history} = useCalculus();
+  console.log(history);
   const [modal, setModal] = useState(false);
 
   function closeModal() {
@@ -17,6 +20,7 @@ export default function History({ historyList }) {
       setTimeout(() => setModal(false), 1000);
     }
   }
+
   return (
     <>
       {modal && (
@@ -30,8 +34,8 @@ export default function History({ historyList }) {
                   color="yellow"
                 />
               </button>
-              {historyList[0].result ? (
-                historyList.map((historyItem, index) => {
+              {history[0].result ? (
+                history.map((historyItem, index) => {
                   return (
                     <div className="history-calc" key={index}>
                       <h2> {historyItem.operation} </h2>
