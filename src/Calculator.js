@@ -4,13 +4,13 @@ import Buttons from './components/Buttons';
 import { isNumeric } from './utils/isNumeric.js';
 import { isBalanced } from './utils/isBalanced.js';
 import Display from './components/Display';
-
 import './css/custom.scss';
+import History from './components/History';
 
 function Calculator() {
   const [displayValue, setDisplayValue] = useState('0');
   const [operation, setOperation] = useState(null);
-  const [historic, setHistoric] = useState([
+  const [history, setHistory] = useState([
     {
       operation: '',
       result: '',
@@ -18,14 +18,15 @@ function Calculator() {
   ]);
 
   function newCalculation(newLabel) {
-    const lastItem = historic.pop();
-    if (displayValue === lastItem.result) {
+    const lastItem = history.pop();
+
+    if (lastItem && displayValue === lastItem.result) {
       setDisplayValue(newLabel);
     }
   }
 
   function erase_display() {
-    setDisplayValue(0);
+    setDisplayValue('0');
   }
 
   function erase_value() {
@@ -33,16 +34,15 @@ function Calculator() {
   }
 
   function add_bracket() {
-    setDisplayValue(
-      isBalanced(displayValue) ? displayValue + '(' : displayValue + ')',
-    );
+    isBalanced(displayValue) ? add_values('(') : add_values(')');
   }
 
   function add_values(label) {
     if (isNumeric(label) || label === '.') {
+      console.log(label);
       displayValue === '0'
         ? setDisplayValue(label)
-        : setDisplayValue(displayValue + label);
+        : setDisplayValue(displayValue + label.toString());
     } else {
       displayValue === '0' && label === '('
         ? setDisplayValue(label)
@@ -58,19 +58,16 @@ function Calculator() {
       : displayValue + ')';
     let res = eval(displayValueBalanced);
 
-    setHistoric([
-      ...historic,
-      { operation: displayValueBalanced, result: res },
-    ]);
+    setHistory([...history, { operation: displayValueBalanced, result: res }]);
     setDisplayValue(res);
   }
 
   const operations = ['+', '-', '/', '*'];
-  const arr = [0, 3, 2, 1, 6, 5, 4, 9, 8, 7];
+  const arr = [3, 2, 1, 6, 5, 4, 9, 8, 7];
 
   return (
     <div className="root">
-      <div className="calculator">
+      <div className="calc-media calculator">
         <Display displayValue={displayValue} />
         <div className="buttons-container">
           <div className="buttons-number">
@@ -78,14 +75,18 @@ function Calculator() {
             <Buttons onclick={erase_value}>C</Buttons>
             <Buttons onclick={add_bracket}>()</Buttons>
             {arr.reverse().map((i) => (
-              <Buttons onclick={add_values}>{i}</Buttons>
+              <Buttons key={i} onclick={add_values}>
+                {i}
+              </Buttons>
             ))}
+            <History historyList={history} />
+            <Buttons onclick={add_values}>0</Buttons>
             <Buttons onclick={add_values}>.</Buttons>
           </div>
           <div className="buttons-operation">
             {operations.map((op) => {
               return (
-                <Buttons onclick={add_values} operation>
+                <Buttons key={op} onclick={add_values} operation>
                   {op}
                 </Buttons>
               );
