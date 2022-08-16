@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import history from '../imgs/history.png';
-import close from '../imgs/close.png';
+import { useTheme } from '../context/Theme';
+import close_icon from '../imgs/close_icon.svg';
+import dark_close_icon from '../imgs/dark-mode/dark_close_icon.svg';
+import history_icon from '../imgs/history_icon.svg';
+import dark_history_icon from '../imgs/dark-mode/dark_history_icon.svg';
 
 export default function History({ historyList }) {
+  const { darkMode } = useTheme();
   const [modal, setModal] = useState(false);
+
   function closeModal() {
     const historySection = document.getElementsByClassName('history');
+    console.log(historySection);
     if (historySection) {
       historySection[0].classList.add('slide-down');
       setTimeout(() => setModal(false), 1000);
@@ -15,27 +21,33 @@ export default function History({ historyList }) {
     <>
       {modal && (
         <div className="root modal">
-          <div className="calc-media history">
+          <div className="calculator-size history">
             <div className="history-list">
               <button className="btn-history" onClick={() => closeModal()}>
-                <img src={close} alt="close" />
+                <img
+                  src={darkMode ? dark_close_icon : close_icon}
+                  alt="close"
+                  color="yellow"
+                />
               </button>
-              {historyList.map((historyItem) => {
-                return historyItem.result ? (
-                  <div className="history-calc" key={historyItem}>
-                    <h2> {historyItem.operation} </h2>
-                    <h3> {historyItem.result} </h3>
-                  </div>
-                ) : (
-                  <p> No Items </p>
-                );
-              })}
+              {historyList[0].result ? (
+                historyList.map((historyItem, index) => {
+                  return (
+                    <div className="history-calc" key={index}>
+                      <h2> {historyItem.operation} </h2>
+                      <h3> {historyItem.result} </h3>
+                    </div>
+                  );
+                })
+              ) : (
+                <p> No Items </p>
+              )}
             </div>
           </div>
         </div>
       )}
-      <button className="btn btn-history" onClick={() => setModal(true)}>
-        <img src={history} alt="History" />
+      <button className="btn" onClick={() => setModal(true)}>
+        <img src={darkMode ? dark_history_icon : history_icon} alt="History" />
       </button>
     </>
   );

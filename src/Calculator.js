@@ -1,13 +1,19 @@
 /* eslint-disable no-eval */
 import { useState } from 'react';
-import Buttons from './components/Buttons';
+import { useTheme } from './context/Theme';
+
 import { isNumeric } from './utils/isNumeric.js';
 import { isBalanced } from './utils/isBalanced.js';
-import Display from './components/Display';
-import './css/custom.scss';
-import History from './components/History';
 
-function Calculator() {
+import Buttons from './components/Buttons';
+import Display from './components/Display';
+import History from './components/History';
+import Toggle from './components/Toggle';
+
+import './css/globals.scss';
+
+export default function Calculator() {
+  const { darkMode } = useTheme();
   const [displayValue, setDisplayValue] = useState('0');
   const [operation, setOperation] = useState(null);
   const [history, setHistory] = useState([
@@ -18,9 +24,8 @@ function Calculator() {
   ]);
 
   function newCalculation(newLabel) {
-    const lastItem = history.pop();
-
-    if (lastItem && displayValue === lastItem.result) {
+    const lastItem = history[0];
+    if (lastItem && displayValue === lastItem.result && isNumeric(newLabel)) {
       setDisplayValue(newLabel);
     }
   }
@@ -39,7 +44,6 @@ function Calculator() {
 
   function add_values(label) {
     if (isNumeric(label) || label === '.') {
-      console.log(label);
       displayValue === '0'
         ? setDisplayValue(label)
         : setDisplayValue(displayValue + label.toString());
@@ -58,48 +62,49 @@ function Calculator() {
       : displayValue + ')';
     let res = eval(displayValueBalanced);
 
-    setHistory([...history, { operation: displayValueBalanced, result: res }]);
+    setHistory([{ operation: displayValueBalanced, result: res }, ...history]);
     setDisplayValue(res);
   }
 
   const operations = ['+', '-', '/', '*'];
-  const arr = [3, 2, 1, 6, 5, 4, 9, 8, 7];
+  const arr = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 
   return (
-    <div className="root">
-      <div className="calc-media calculator">
-        <Display displayValue={displayValue} />
-        <div className="buttons-container">
-          <div className="buttons-number">
-            <Buttons onclick={erase_display}>AC</Buttons>
-            <Buttons onclick={erase_value}>C</Buttons>
-            <Buttons onclick={add_bracket}>()</Buttons>
-            {arr.reverse().map((i) => (
-              <Buttons key={i} onclick={add_values}>
-                {i}
-              </Buttons>
-            ))}
-            <History historyList={history} />
-            <Buttons onclick={add_values}>0</Buttons>
-            <Buttons onclick={add_values}>.</Buttons>
-          </div>
-          <div className="buttons-operation">
-            {operations.map((op) => {
-              return (
-                <Buttons key={op} onclick={add_values} operation>
-                  {op}
-                </Buttons>
-              );
-            })}
+    <div
+      className={`calculator-size calculator ${darkMode ? 'dark-mode' : ''}`}
+    >
+      <Toggle />
 
-            <Buttons onclick={calculate} operation>
-              =
+      <Display displayValue={displayValue} />
+
+      <div className="btn-container">
+        <div className="btn-numbers">
+          <Buttons onclick={erase_display}>AC</Buttons>
+          <Buttons onclick={erase_value}>C</Buttons>
+          <Buttons onclick={add_bracket}>{'( )'}</Buttons>
+          {arr.map((i) => (
+            <Buttons key={i} onclick={add_values}>
+              {i}
             </Buttons>
-          </div>
+          ))}
+          <History historyList={history} />
+          <Buttons onclick={add_values}>0</Buttons>
+          <Buttons onclick={add_values}>.</Buttons>
+        </div>
+
+        <div className="btn-operations">
+          {operations.map((op) => {
+            return (
+              <Buttons key={op} onclick={add_values} operation>
+                {op}
+              </Buttons>
+            );
+          })}
+          <Buttons onclick={calculate} operation>
+            =
+          </Buttons>
         </div>
       </div>
     </div>
   );
 }
-
-export default Calculator;
