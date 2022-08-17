@@ -9,12 +9,10 @@ import { useCalculus } from '../context/Calculus';
 export default function History({ historyList }) {
   const { darkMode } = useTheme();
   const {history} = useCalculus();
-  console.log(history);
   const [modal, setModal] = useState(false);
 
   function closeModal() {
     const historySection = document.getElementsByClassName('history');
-    console.log(historySection);
     if (historySection) {
       historySection[0].classList.add('slide-down');
       setTimeout(() => setModal(false), 1000);
