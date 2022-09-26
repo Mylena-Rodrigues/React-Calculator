@@ -1,6 +1,11 @@
-.display-container{
-    text-align: end;
-    padding: 20px;
-    color: $calc_number;
-    font-size: 3rem;
+.display-container {
+  text-align: end;
+  padding: 20px;
+  color: $calc_number;
+  font-size: 3rem;
+}
+
+.result {
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }

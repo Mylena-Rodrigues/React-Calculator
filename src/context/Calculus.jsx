@@ -34,6 +34,7 @@ export default function CalculusContextProvider({ children }) {
   }
 
   function addValues(label) {
+    document.querySelector(".display-container").classList.remove("result");
     if (isNumeric(label) || label === '.') {
       displayValue === '0'
         ? setDisplayValue(label)
@@ -56,6 +57,7 @@ export default function CalculusContextProvider({ children }) {
 
     setHistory([{ operation: displayValueBalanced, result: res }, ...history]);
     setDisplayValue(res);
+    document.querySelector(".display-container").classList.add("result");
   }
 
   return (
